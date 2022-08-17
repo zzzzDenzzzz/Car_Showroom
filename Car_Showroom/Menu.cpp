@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-void Menu::selectMenuItem()
+bool Menu::selectMenuItem()
 {
 	bool input_error;
 
@@ -25,6 +25,7 @@ void Menu::selectMenuItem()
 		case '6':
 			writing();
 			input_error = false;
+			return false;
 			break;
 		default:
 			cout << "Ошибка ввода\n>>> ";
@@ -32,15 +33,34 @@ void Menu::selectMenuItem()
 			break;
 		}
 	} while (input_error);
+	return true;
 }
 
 void Menu::writing()
 {
-	list<Car>::iterator it;
 	fstream file;
-	for (it = car_list.begin(); it != car_list.end(); it++)
+	file.open("db_car.txt", ios::out);
+	if (file.is_open())
 	{
-		file << (*it) << endl;
+		for (it = car_list.begin(); it != car_list.end(); it++)
+		{
+			file << (*it) << endl;
+		}
+	}
+	file.close();
+}
+
+void Menu::reading()
+{
+	fstream file;
+	Car car;
+	file.open("db_car.txt");
+	if (file.is_open())
+	{
+		while (file >> car)
+		{
+			car_list.push_back(car);
+		}
 	}
 	file.close();
 }
@@ -75,7 +95,6 @@ void Menu::add()
 
 void Menu::print()
 {
-	list<Car>::iterator it;
 	for (it = car_list.begin(); it != car_list.end(); it++)
 	{
 		cout << (*it) << endl;
@@ -84,6 +103,8 @@ void Menu::print()
 
 void Menu::start()
 {
+	reading();
+
 	cout << "Выбирите пункт меню для работы с данными:\n";
 	cout << "1. Добавить\n";
 	cout << "2. Удалить\n";
@@ -93,8 +114,5 @@ void Menu::start()
 	cout << "6. Выход\n\n";
 	cout << ">>> ";
 
-	while (true)
-	{
-		selectMenuItem();
-	}
+	while (selectMenuItem());
 }

@@ -25,4 +25,5 @@ public:
 	string getPrice();
 	friend ostream &operator<<(ostream &os, Car &car);
 	friend fstream &operator<<(fstream &file, Car &car);
+	friend fstream &operator>>(fstream &file, Car &car);
 };

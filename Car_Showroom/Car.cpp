@@ -67,12 +67,14 @@ ostream &operator<<(ostream &os, Car &car)
 
 fstream &operator<<(fstream &file, Car &car)
 {
-	file.open("db_car.txt", ios::app);
-	if (file.is_open())
-	{
-		file << "<...>\n" << car.getCarName() << "\n" << car.getYearIssue() << "\n" <<
-			car.getEngineVolume() << "\n" << car.getPrice() << "\n<...>\n";
-	}
-	file.close();
+	file << "<...>\n" << car.car_name<< "\n" << car.year_issue << "\n" <<
+		car.engine_volume << "\n" << car.price << "\n<...>\n";
+	return file;
+}
+
+fstream &operator>>(fstream &file, Car &car)
+{
+	string line;
+	file >> line >> car.car_name >> car.year_issue >> car.engine_volume >> car.price >> line;
 	return file;
 }
