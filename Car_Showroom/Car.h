@@ -1,6 +1,8 @@
 #pragma once
 
 #include<string>
+#include<iostream>
+#include<fstream>
 
 using namespace std;
 
@@ -8,7 +10,7 @@ class Car
 {
 	string car_name; // название
 	string year_issue; // год выпуска
-	string engine_volume; // обЪем двигателя
+	string engine_volume; // объем двигателя
 	string price; // цена
 public:
 	Car();
@@ -21,4 +23,6 @@ public:
 	string getEngineVolume();
 	void setPrice(string price);
 	string getPrice();
+	friend ostream &operator<<(ostream &os, Car &car);
+	friend fstream &operator<<(fstream &file, Car &car);
 };

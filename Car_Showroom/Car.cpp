@@ -55,3 +55,24 @@ string Car::getPrice()
 {
 	return price;
 }
+
+ostream &operator<<(ostream &os, Car &car)
+{
+	cout << "Название автомобиля: " << car.car_name << "\n" <<
+		"Год выпуска: " << car.year_issue << "\n" <<
+		"Объем двигателя: " << car.engine_volume << "\n" <<
+		"Цена: " << car.price << "\n";
+	return os;
+}
+
+fstream &operator<<(fstream &file, Car &car)
+{
+	file.open("db_car.txt", ios::app);
+	if (file.is_open())
+	{
+		file << "<...>\n" << car.getCarName() << "\n" << car.getYearIssue() << "\n" <<
+			car.getEngineVolume() << "\n" << car.getPrice() << "\n<...>\n";
+	}
+	file.close();
+	return file;
+}

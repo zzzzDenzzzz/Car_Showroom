@@ -16,12 +16,14 @@ void Menu::selectMenuItem()
 		case '2':
 			break;
 		case '3':
+			print();
 			break;
 		case '4':
 			break;
 		case '5':
 			break;
 		case '6':
+			writing();
 			input_error = false;
 			break;
 		default:
@@ -32,13 +34,13 @@ void Menu::selectMenuItem()
 	} while (input_error);
 }
 
-void Menu::writing(Car &car)
+void Menu::writing()
 {
-	file.open(db_car, ios::app);
-	if (file.is_open())
+	list<Car>::iterator it;
+	fstream file;
+	for (it = car_list.begin(); it != car_list.end(); it++)
 	{
-		file << car.getCarName() << " " << car.getYearIssue() << " " <<
-			car.getEngineVolume() << " " << car.getPrice() << "\n";
+		file << (*it) << endl;
 	}
 	file.close();
 }
@@ -46,25 +48,38 @@ void Menu::writing(Car &car)
 void Menu::add()
 {
 	Car car;
-	cout << "Добавте данные\n";
-	cout << "Название автомобиля: ";
-	string car_name;
-	cin >> car_name;
-	car.setCarName(car_name);
-	cout << "Год выпуска: ";
-	string year;
-	cin >> year;
-	car.setYearIssue(year);
-	cout << "Объем двигателя: ";
-	string engine_v;
-	cin >> engine_v;
-	car.setEngineVolume(engine_v);
-	cout << "Цена: ";
-	string price;
-	cin >> price;
-	car.setPrice(price);
 
+	cout << "Добавте данные\n";
+
+	cout << "Название автомобиля: ";
+	string line;
+	cin.ignore();
+	getline(cin, line);
+	car.setCarName(line);
+
+	cout << "Год выпуска: ";
+	getline(cin, line);
+	car.setYearIssue(line);
+
+	cout << "Объем двигателя: ";
+	getline(cin, line);
+	car.setEngineVolume(line);
+
+	cout << "Цена: ";
+	getline(cin, line);
+	car.setPrice(line);
+
+	//writing(car); для отладки
 	car_list.push_back(car);
+}
+
+void Menu::print()
+{
+	list<Car>::iterator it;
+	for (it = car_list.begin(); it != car_list.end(); it++)
+	{
+		cout << (*it) << endl;
+	}
 }
 
 void Menu::start()
@@ -77,5 +92,9 @@ void Menu::start()
 	cout << "5. Поиск\n";
 	cout << "6. Выход\n\n";
 	cout << ">>> ";
-	selectMenuItem();
+
+	while (true)
+	{
+		selectMenuItem();
+	}
 }
