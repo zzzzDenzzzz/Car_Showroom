@@ -8,13 +8,16 @@ using namespace std;
 
 class Car
 {
+	string number_car; // номер
 	string car_name; // название
 	string year_issue; // год выпуска
 	string engine_volume; // объем двигателя
 	string price; // цена
 public:
 	Car();
-	Car(string car_name, string year_issue, string engine_volume, string price);
+	Car(string number_car, string car_name, string year_issue, string engine_volume, string price);
+	void setNumberCar(string number_car);
+	string getNumberCar();
 	void setCarName(string car_name);
 	string getCarName();
 	void setYearIssue(string year_issue);

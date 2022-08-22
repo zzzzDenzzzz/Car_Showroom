@@ -2,18 +2,30 @@
 
 Car::Car()
 {
+	number_car = "ca000r";
 	car_name = "no_name";
 	year_issue = "0000";
 	engine_volume = "0.0";
 	price = "0";
 }
 
-Car::Car(string car_name, string year_issue, string engine_volume, string price)
+Car::Car(string number_car, string car_name, string year_issue, string engine_volume, string price)
 {
+	this->number_car = number_car;
 	this->car_name = car_name;
 	this->year_issue = year_issue;
 	this->engine_volume = engine_volume;
 	this->price = price;
+}
+
+void Car::setNumberCar(string number_car)
+{
+	this->number_car = number_car;
+}
+
+string Car::getNumberCar()
+{
+	return number_car;
 }
 
 void Car::setCarName(string car_name)
@@ -58,7 +70,8 @@ string Car::getPrice()
 
 ostream &operator<<(ostream &os, Car &car)
 {
-	cout << "Название автомобиля: " << car.car_name << "\n" <<
+	cout << "<" << car.number_car << ">\n" << 
+		"Название автомобиля: " << car.car_name << "\n" <<
 		"Год выпуска: " << car.year_issue << "\n" <<
 		"Объем двигателя: " << car.engine_volume << "\n" <<
 		"Цена: " << car.price << "\n";
@@ -67,14 +80,14 @@ ostream &operator<<(ostream &os, Car &car)
 
 fstream &operator<<(fstream &file, Car &car)
 {
-	file << "<...>\n" << car.car_name<< "\n" << car.year_issue << "\n" <<
-		car.engine_volume << "\n" << car.price << "\n<...>\n";
+	file << car.number_car << "\n" << car.car_name<< "\n" << car.year_issue << "\n" <<
+		car.engine_volume << "\n" << car.price << "\n[...]\n";
 	return file;
 }
 
 fstream &operator>>(fstream &file, Car &car)
 {
 	string line;
-	file >> line >> car.car_name >> car.year_issue >> car.engine_volume >> car.price >> line;
+	file >> car.number_car >> car.car_name >> car.year_issue >> car.engine_volume >> car.price >> line;
 	return file;
 }
