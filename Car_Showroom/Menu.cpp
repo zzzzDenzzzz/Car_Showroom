@@ -23,6 +23,7 @@ bool Menu::selectMenuItem()
 			sortMenu();
 			break;
 		case '5':
+			searchMenu();
 			break;
 		case '6':
 			writing();
@@ -170,6 +171,84 @@ void Menu::sortCarPrice()
 void Menu::sortYearIssue()
 {
 	car_list.sort(SortYearIssue());
+}
+
+void Menu::searchMenu()
+{
+	cout << "Найти:\n";
+	cout << "1. По названию\n";
+	cout << "2. По объему двигателя\n";
+	cout << "3. Выход\n\n";
+	cout << ">>> ";
+
+	selectSearchMenuItem();
+}
+
+void Menu::selectSearchMenuItem()
+{
+	bool input_error = false;
+	do
+	{
+		cin >> item;
+		switch (item)
+		{
+		case '1':
+			searchCarName();
+			break;
+		case '2':
+			searchEngineVolume();
+			break;
+		case '3':
+			input_error = false;
+			break;
+		default:
+			cout << "Ошибка ввода\n>>> ";
+			input_error = true;
+			break;
+		}
+	} while (input_error);
+}
+
+void Menu::searchCarName()
+{
+	string car_name_tmp;
+	bool print_message = false;
+	cout << "Введите название автомобиля:\n";
+	cin.ignore();
+	getline(cin, car_name_tmp);
+	for (it = car_list.begin();  it != car_list.end(); it++)
+	{
+		if ((*it).getCarName() == car_name_tmp)
+		{
+			cout << (*it) << endl;
+			print_message = true;
+		}
+	}
+	if (!print_message)
+	{
+		cout << "запись не найдена\n";
+	}
+}
+
+void Menu::searchEngineVolume()
+{
+	string engine_volume_tmp;
+	bool print_message = false;
+	cout << "Введите объем двигателя:\n";
+	cin.ignore();
+	getline(cin, engine_volume_tmp);
+	for (it = car_list.begin(); it != car_list.end(); it++)
+	{
+		if ((*it).getEngineVolume() == engine_volume_tmp)
+		{
+			cout << (*it) << endl;
+			print_message = true;
+		}
+	}
+	if (!print_message)
+	{
+		cout << "запись не найдена\n";
+	}
 }
 
 void Menu::start()

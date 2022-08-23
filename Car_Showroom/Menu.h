@@ -24,8 +24,12 @@ class Menu
 	void print(); // вывод списка(list)!!! на экран
 	void sortMenu(); // меню сортировки
 	void selectSortMenuItem(); // выбор пункта меню сортировки
-	void sortCarPrice();
-	void sortYearIssue();
+	void sortCarPrice(); // сортировка по цене
+	void sortYearIssue(); // сортировка по году выпуска
+	void searchMenu(); // меню поиска
+	void selectSearchMenuItem(); // выбор пункта меню поиска
+	void searchCarName(); // поиск по названию и вывод в консоль
+	void searchEngineVolume(); // поиск по объему двигателя и вывод в консоль
 public:
 	void start(); // запуск меню
 	
